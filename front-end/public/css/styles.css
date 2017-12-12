@@ -1,4 +1,10 @@
 body {
   background-color: white; }
 
+li {
+  list-style: none; }
+
+#sign-in > a {
+  display: inline-block; }
+
 /*# sourceMappingURL=styles.css.map */
