@@ -12,7 +12,7 @@ class NavBar extends Component{
 		return(
 			<div id="navbar">
 				<nav className="navbar navbar-fixed-top">
-              		<div className="container-fluid navbar-white">
+            		<div className="container-fluid navbar-white">
                 		<div className="container">
 	                		<ul className="nav navbar-nav">
 	                			<li>Home</li>
