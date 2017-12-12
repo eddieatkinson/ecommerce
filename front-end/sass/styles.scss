@@ -1,11 +1,14 @@
-body{
-	background-color: white;
+.app-body{
+	margin-top: 100px;
 }
+
+@import 'navbar';
 
 li{
 	list-style: none;
 }
 
-#sign-in > a{
-	display: inline-block;
+a{
+	color: #777;
 }
+

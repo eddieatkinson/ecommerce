@@ -1,10 +1,16 @@
-body {
-  background-color: white; }
+.app-body {
+  margin-top: 100px; }
+
+.navbar-white {
+  background-color: #FFF; }
+
+.nav.pull-right li a {
+  display: inline; }
 
 li {
   list-style: none; }
 
-#sign-in > a {
-  display: inline-block; }
+a {
+  color: #777; }
 
 /*# sourceMappingURL=styles.css.map */
