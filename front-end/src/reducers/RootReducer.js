@@ -11,12 +11,14 @@ import { combineReducers } from 'redux';
 // Import each individual reducer to hand to combineReducers.
 // First: AuthReducer
 import AuthReducer from './AuthReducer';
+import ProductLineReducer from './ProductLineReducer';
 
 // combineReducers taks an object as an arg.
 // That arg has key: value pair = stateName: reducerFunction.
 // The reducerFunction will return a value.
 const rootReducer = combineReducers({
-	auth: AuthReducer
+	auth: AuthReducer,
+	productLines: ProductLineReducer
 });
 
 export default rootReducer;

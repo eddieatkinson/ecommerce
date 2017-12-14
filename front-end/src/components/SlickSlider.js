@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 class SlickSlider extends Component{
 	render(){
-		console.log(this.props.match);
+		// console.log(this.props.match);
 
 		const settings = {
 			dots: true,
