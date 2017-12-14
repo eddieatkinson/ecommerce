@@ -3,14 +3,14 @@
 import axios from 'axios';
 
 export default function(formData){
-	console.log("AUTH_ACTION is running......so FAST!");
-	console.log(formData);
+	console.log("Login action (AUTH_ACTION) is running......so FAST!");
+	// console.log(formData);
 	var axiosPromise = axios({
-		url: `${window.apiHost}/register`,
+		url: `${window.apiHost}/login`,
 		method: "POST",
 		data: formData
 	});
-	// console.log(axiosPromise);
+	console.log(axiosPromise);
 	// Our redux-promise middleware will kick in because the payload value
 	// is a promise.
 	// Redux-promise will hold up the dispatch until it resolves.

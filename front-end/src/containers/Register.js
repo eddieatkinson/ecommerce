@@ -8,27 +8,57 @@ class Register extends Component{
 	constructor(){
 		super();
 		this.state = {
-
+			error: ""
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleSubmit(event){
-		event.preventDefault();
-		const name = document.getElementById('name').value;
-		this.props.authAction(name);
+	componentWillReceiveProps(newProps){
+		console.log(this.props);
+		console.log(newProps);
+		if(newProps.auth.msg === "registerSuccess"){
+			// User was inserted, we have token and name safely in auth reducer.
+			// Move them to home page.
+			this.props.history.push('/')
+		}else if(newProps.auth.msg === "userExists"){
+			this.setState({
+				error: "This email address is already registered. Please login or choose a different email."
+			});
+		}
 	}
+
+	handleSubmit(event){
+        event.preventDefault();
+        const formData = {
+            name: event.target[0].value,
+            email: event.target[1].value,
+            accountType: event.target[2].value,
+            password: event.target[3].value,
+            city: event.target[4].value,
+            state: event.target[5].value,
+            salesRep: event.target[6].value
+        }
+        // if(formData.name === ""){
+        // 	this.setState({
+        // 		error: "Name field cannot be empty."
+        // 	});
+        // }else{
+        // 	this.props.authAction(formData);        	
+        // }
+        this.props.authAction(formData); 
+    }
 
 	render(){
 		console.log(this.props.auth);
 		return (
 			<Form horizontal onSubmit={this.handleSubmit}>
+				<h3 className="text-danger">{this.state.error}</h3>
 				<FormGroup controlId="formHorizontalName" validationState={this.state.nameError}>
 					<Col componentClass={ControlLabel} sm={2}>
 						Name
 					</Col>
 					<Col sm={10}>
-						<FormControl id="name" type="text" name="fullName" placeholder="Full Name" />
+						<FormControl required="true" type="text" name="fullName" placeholder="Full Name" />
 					</Col>
 				</FormGroup>
 				<FormGroup controlId="formHorizontalName" validationState={this.state.emailError}>
@@ -36,7 +66,7 @@ class Register extends Component{
 						Email
 					</Col>
 					<Col sm={10}>
-						<FormControl type="email" name="email" placeholder="Email" />
+						<FormControl required="true" type="email" name="email" placeholder="Email" />
 					</Col>
 				</FormGroup>
 				<FormGroup controlId="formHorizontalName">
@@ -52,7 +82,7 @@ class Register extends Component{
 						Password
 					</Col>
 					<Col sm={10}>
-						<FormControl type="password" name="password" placeholder="Password" />
+						<FormControl required="true" type="password" name="password" placeholder="Password" />
 					</Col>
 				</FormGroup>
 				<FormGroup controlId="formHorizontalName">
