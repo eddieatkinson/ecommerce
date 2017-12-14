@@ -6,6 +6,6 @@ export default function(){
 		type: "GET_PRODUCTLINES",
 		// axios returns a bunch of stuff (headers, config, etc.)
 		// we just care about the data
-		payload: axiosPromise.data
+		payload: axiosPromise
 	}
 }

@@ -125,4 +125,15 @@ router.post('/login', (req, res, next)=>{
 	});
 });
 
+router.get('/productlines/get', (req, res, next)=>{
+	const selectQuery = `SELECT * FROM productlines;`;
+	connection.query(selectQuery, (error, results)=>{
+		if(error){
+			throw error
+		}else{
+			res.json(results);
+		}
+	});
+});
+
 module.exports = router;
