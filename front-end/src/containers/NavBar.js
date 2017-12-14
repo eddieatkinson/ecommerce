@@ -17,14 +17,14 @@ class NavBar extends Component{
 		if(this.props.auth.name != undefined){
 			// the user is logged in
 			var rightMenuBar = [
-				<li>Welcome, {this.props.auth.name}!</li>,
-				<li><Link to='/cart'>(0) items in your cart | ($0)</Link></li>,
-				<li><Link to='/logout'>Logout</Link></li>
+				<li key={1}>Welcome, {this.props.auth.name}!</li>,
+				<li key={2}><Link to='/cart'>(0) items in your cart | ($0)</Link></li>,
+				<li key={3}><Link to='/logout'>Logout</Link></li>
 			]	
 		}else{
 			var rightMenuBar = [
-          		<li id="sign-in"><Link to='/login'>Sign in</Link> or <Link to='/register'>Create an Account</Link>|&nbsp;&nbsp;</li>,
-    			<li>(0) items in cart | $0.00</li> 
+          		<li key={1} id="sign-in"><Link to='/login'>Sign in</Link> or <Link to='/register'>Create an Account</Link>|&nbsp;&nbsp;</li>,
+    			<li key={2}>(0) items in cart | $0.00</li> 
 			]
 		}
 		console.log(this.props.auth);

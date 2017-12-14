@@ -16,13 +16,17 @@ class Login extends Component{
 	componentWillReceiveProps(newProps){
 		console.log(this.props);
 		console.log(newProps);
-		if(newProps.auth.msg === "registerSuccess"){
+		if(newProps.auth.msg === "loginSuccess"){
 			// User was inserted, we have token and name safely in auth reducer.
 			// Move them to home page.
 			this.props.history.push('/')
-		}else if(newProps.auth.msg === "userExists"){
+		}else if(newProps.auth.msg === "wrongPassword"){
 			this.setState({
-				error: "This email address is already registered. Please login or choose a different email."
+				error: "Incorrect password."
+			});
+		}else if(newProps.auth.msg === "badUser"){
+			this.setState({
+				error: "We do not have an account with that email."
 			});
 		}
 	}
@@ -37,8 +41,10 @@ class Login extends Component{
 		this.props.loginAction(formData);        	
 	}
 	render(){
+		console.log(this.props.auth);
 		return(
 			<div className="register-wrapper">
+				<h3 className="text-danger">{this.state.error}</h3>
 				<Form horizontal onSubmit={this.handleSubmit}>
 					<FormGroup controlId="formHorizontalName" validationState={this.state.nameError}>
 						<Col componentClass={ControlLabel} sm={2}>

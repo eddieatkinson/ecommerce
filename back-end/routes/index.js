@@ -85,7 +85,9 @@ router.post('/login', (req, res, next)=>{
 	const email = req.body.email;
 	const password = req.body.password;
 
-	const checkLoginQuery = `SELECT * FROM users WHERE email = ?;`;
+	const checkLoginQuery = `SELECT * FROM users
+		INNER JOIN customers ON users.cid = customers.customerNumber
+		WHERE users.email = ?;`;
 
 	connection.query(checkLoginQuery, [email], (error, results)=>{
 		if(error){
@@ -99,18 +101,28 @@ router.post('/login', (req, res, next)=>{
 		}else{
 			// email is valid, see if password is valid
 			const checkHash = bcrypt.compareSync(password, results[0].password);
-			if(checkHash){
-				res.json{
-					msg: "loggedIn"
-				}
+			const name = results[0].customerName;
+			if(checkHash){ // correct password
+				const newToken = randToken.uid(60);
+				const updateToken = `UPDATE users SET token = ? WHERE email = ?;`;
+				connection.query(updateToken, [newToken, email], (error, results)=>{
+					if(error){
+						throw error;
+					}else{
+						res.json({
+							msg: "loginSuccess",
+							token: newToken,
+							name: name
+						})
+					}
+				});
 			}else{
-				res.json{
-					msg: "badPass"
-				}
+				res.json({
+					msg: "wrongPassword"
+				})
 			}
 		}
 	});
-	res.json(req.body);
 });
 
 module.exports = router;
