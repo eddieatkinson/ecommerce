@@ -82,6 +82,34 @@ router.post('/register', (req, res, next)=>{
 
 router.post('/login', (req, res, next)=>{
 	console.log(req.body);
+	const email = req.body.email;
+	const password = req.body.password;
+
+	const checkLoginQuery = `SELECT * FROM users WHERE email = ?;`;
+
+	connection.query(checkLoginQuery, [email], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		if(results.length === 0){
+			// this user does not exist
+			res.json({
+				msg: "badUser"
+			});
+		}else{
+			// email is valid, see if password is valid
+			const checkHash = bcrypt.compareSync(password, results[0].password);
+			if(checkHash){
+				res.json{
+					msg: "loggedIn"
+				}
+			}else{
+				res.json{
+					msg: "badPass"
+				}
+			}
+		}
+	});
 	res.json(req.body);
 });
 
