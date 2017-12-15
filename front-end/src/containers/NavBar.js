@@ -12,7 +12,6 @@ class NavBar extends Component{
 	}
 
 	componentDidMount(){
-		// console.log("Not yet!");
 		this.props.getProductLines();
 	}
 
@@ -30,12 +29,14 @@ class NavBar extends Component{
     			<li key={2}>(0) items in cart | $0.00</li> 
 			]
 		}
-		console.log(this.props.auth);
-		console.log(this.props.productLines);
+		// console.log(this.props.auth);
+		// console.log(this.props.productLines);
 		var shopMenu = this.props.productLines.map((pl, index)=>{
-			return(<Link key={index} to={`/shop/${pl.link}`}>{pl.productLine}</Link>);
+			const safeLink = encodeURIComponent(pl.productLine);
+			// console.log(safeLink);
+			return(<Link key={index} to={`/shop/${safeLink}`}>{pl.productLine}</Link>);
 		});
-		console.log(shopMenu);
+		// console.log(shopMenu);
 		return(
 			<div id="navbar">
 				<nav className="navbar navbar-fixed-top">
