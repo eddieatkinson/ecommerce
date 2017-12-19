@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, ControlLabel, FormControl, Button, Col, MenuItem } from 'react-bootstrap';
+import { Form, FormGroup, ControlLabel, FormControl, Button, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import AuthAction from '../actions/AuthAction';
 import { bindActionCreators } from 'redux';

@@ -1,30 +1,58 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Login from '../containers/Login';
-import Register from './Register';
+// import Login from '../containers/Login';
+// import Register from './Register';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import GetProductLines from '../actions/GetProductLines';
+import LoginAction from '../actions/LoginAction';
+import GetCart from '../actions/GetCart';
 
 class NavBar extends Component{
 	constructor(){
 		super();
+		this.fakeLogin = this.fakeLogin.bind(this);
+	}
+
+	fakeLogin(){
+		this.props.loginAction('fake');
 	}
 
 	componentDidMount(){
 		this.props.getProductLines();
 	}
 
+	// On login, we need to update the cart.
+	// componentWillReceiveProps(newProps){
+	// 	console.log(newProps);
+	// 	if(newProps.auth.msg === "loginSuccess"){
+	// 		// The user just logged in. Get their cart.
+	// 		this.props.getCart();
+	// 	}
+	// }
+
 	render(){
-		if(this.props.auth.name != undefined){
+		console.log(this.props.cart);
+		var cartText;
+		var rightMenuBar;
+		if(this.props.auth.name !== undefined){
+			if(this.props.cart.totalPrice !== undefined){
+				// something's in the user's cart!
+				const totalPrice = this.props.cart.totalPrice.toFixed(2);
+				const totalItems = this.props.cart.totalItems;
+				cartText = `(${totalItems}) items in your cart | ($${totalPrice})`
+			}else{
+				cartText = "Your cart is empty.";
+			}
 			// the user is logged in
-			var rightMenuBar = [
+			rightMenuBar = [
 				<li key={1}>Welcome, {this.props.auth.name}!</li>,
-				<li key={2}><Link to='/cart'>(0) items in your cart | ($0)</Link></li>,
+				<li key={2}><Link to='/cart'>{cartText}</Link></li>,
 				<li key={3}><Link to='/logout'>Logout</Link></li>
 			]	
 		}else{
-			var rightMenuBar = [
+			rightMenuBar = [
+				<li key={0}><button className="btn btn-primary" onClick={this.fakeLogin}>FAKE LOGIN</button></li>,
           		<li key={1} id="sign-in"><Link to='/login'>Sign in</Link> or <Link to='/register'>Create an Account</Link>|&nbsp;&nbsp;</li>,
     			<li key={2}>(0) items in cart | $0.00</li> 
 			]
@@ -77,13 +105,16 @@ function mapStateToProps(state){
 	// state = RootReducer
 	return{
 		auth: state.auth,
-		productLines: state.productLines
+		productLines: state.productLines,
+		cart: state.cart
 	}
 }
 
 function mapDispatchToProps(dispatch){
 	return bindActionCreators({
-		getProductLines: GetProductLines
+		getProductLines: GetProductLines,
+		loginAction: LoginAction,
+		getCart: GetCart
 	}, dispatch);
 }
 

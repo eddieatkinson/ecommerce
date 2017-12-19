@@ -3,11 +3,17 @@ import React from 'react';
 function ProductRow(props){
 	// console.log(props.token);
 	const product = props.product;
+	const buyPrice = product.buyPrice.toFixed(2);
+	const MSRP = product.MSRP.toFixed(2);
+	var button;
+	var inStockClass;
+	var inStock;
+
 	if(props.token === undefined){
 		// this user is not logged in
-		var button = ""
+		button = ""
 	}else{
-		var button = <button
+		button = <button
 						className="btn btn-primary"
 						onClick={()=>{
 							props.addToCart(props.token, product.productCode)
@@ -15,14 +21,14 @@ function ProductRow(props){
 					>Add to cart</button>
 	}
 	if(product.quantityInStock > 100){
-		var inStockClass = "";
-		var inStock = "In Stock!"
+		inStockClass = "";
+		inStock = "In Stock!"
 	}else if(product.quantityInStock > 0){
-		var inStockClass = "bg-warning";
-		var inStock = 'Order Soon!'
+		inStockClass = "bg-warning";
+		inStock = 'Order Soon!'
 	}else{
-		var inStockClass = "bg-danger";
-		var inStock = 'Out of stock!'
+		inStockClass = "bg-danger";
+		inStock = 'Out of stock!'
 	}
 
 	return(
@@ -32,8 +38,8 @@ function ProductRow(props){
 			<td>{product.productVendor}</td>
 			<td>{product.productDescription}</td>
 			<td className={inStockClass}>{inStock}</td>
-			<td>{product.buyPrice}</td>
-			<td>{product.MSRP}</td>
+			<td>${buyPrice}</td>
+			<td>${MSRP}</td>
 			<td>{button}</td>
 		</tr>
 	);

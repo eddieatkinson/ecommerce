@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, ControlLabel, FormControl, Button, Col, MenuItem } from 'react-bootstrap';
+import { Form, FormGroup, ControlLabel, FormControl, Button, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import LoginAction from '../actions/LoginAction';
 import { bindActionCreators } from 'redux';
+import GetCart from '../actions/GetCart';
 
 class Login extends Component{
 	constructor(){
@@ -14,9 +15,10 @@ class Login extends Component{
 	}
 
 	componentWillReceiveProps(newProps){
-		console.log(this.props);
-		console.log(newProps);
+		// console.log(this.props);
+		// console.log(newProps);
 		if(newProps.auth.msg === "loginSuccess"){
+			this.props.getCart(newProps.auth.token);
 			// User was inserted, we have token and name safely in auth reducer.
 			// Move them to home page.
 			this.props.history.push('/')
@@ -33,7 +35,7 @@ class Login extends Component{
 
 	handleSubmit(event){
 		event.preventDefault();
-		console.log("handleSubmit running....and RUNNING!");
+		// console.log("handleSubmit running....and RUNNING!");
 		const formData = {
 			email: event.target[0].value,
 			password: event.target[1].value,
@@ -41,7 +43,7 @@ class Login extends Component{
 		this.props.loginAction(formData);        	
 	}
 	render(){
-		console.log(this.props.auth);
+		// console.log(this.props.auth);
 		return(
 			<div className="register-wrapper">
 				<h3 className="text-danger">{this.state.error}</h3>
@@ -71,7 +73,7 @@ class Login extends Component{
 					</FormGroup>
 				</Form>
 			</div>
-		)
+		);
 	}
 	// render(){
 	// 	console.log(this.props.auth);
@@ -118,7 +120,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
 	// dispatch is the thing that takes any action and sends it out to all reducers
 	return bindActionCreators({
-		loginAction: LoginAction
+		loginAction: LoginAction,
+		getCart: GetCart
 	}, dispatch);
 }
 
