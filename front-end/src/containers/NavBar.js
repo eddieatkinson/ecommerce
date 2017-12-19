@@ -38,7 +38,7 @@ class NavBar extends Component{
 		if(this.props.auth.name !== undefined){
 			if(this.props.cart.totalPrice !== undefined){
 				// something's in the user's cart!
-				const totalPrice = this.props.cart.totalPrice.toFixed(2);
+				const totalPrice = this.props.cart.totalPrice;
 				const totalItems = this.props.cart.totalItems;
 				cartText = `(${totalItems}) items in your cart | ($${totalPrice})`
 			}else{

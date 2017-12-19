@@ -57,10 +57,18 @@ class Cart extends Component{
 	render(){
 		console.log(this.props.cart);
 		// if no one is logged in, though no one should be at this route if not logged in
-		if(this.props.cart.products === undefined){
-			this.props.cart.products = [];
-		}
-		if(this.props.cart.totalItems === 0){
+		// if(!this.props.cart.totalItems){
+		// 	// if this return occurs, the render is DONE
+		// 	return(
+		// 		<div>
+		// 			<h3>Your cart is empty! Get shopping or <Link to="/login">login</Link></h3>
+		// 		</div>
+		// 	)
+		// }
+		// if(this.props.cart.products === undefined){
+		// 	this.props.cart.products = [];
+		// }
+		if(!this.props.cart.totalItems){
 			return(
 				<div>
 					<h3>Your cart is empty! Get shopping or <Link to='/login'>login</Link>.</h3>
@@ -75,7 +83,7 @@ class Cart extends Component{
 			});
 			return(
 				<div>
-					<h2>Your order total is: ${this.props.cart.totalPrice} - <button className="btn btn-primary" onClick={this.makePayment}>Checkout</button></h2>
+					<h2>Your order total is: ${this.props.cart.totalPrice} <button className="btn btn-primary" onClick={this.makePayment}>Checkout</button></h2>
 					<table className="table table-striped">
 						<thead>
 							<tr>
