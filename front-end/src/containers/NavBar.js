@@ -38,7 +38,10 @@ class NavBar extends Component{
 		if(this.props.auth.name !== undefined){
 			if(this.props.cart.totalPrice !== undefined){
 				// something's in the user's cart!
-				const totalPrice = this.props.cart.totalPrice;
+				var totalPrice = this.props.cart.totalPrice;
+				if(totalPrice === null){
+					totalPrice = 0;
+				}
 				const totalItems = this.props.cart.totalItems;
 				cartText = `(${totalItems}) items in your cart | ($${totalPrice})`
 			}else{
@@ -46,7 +49,7 @@ class NavBar extends Component{
 			}
 			// the user is logged in
 			rightMenuBar = [
-				<li key={1}>Welcome, {this.props.auth.name}!</li>,
+				<li key={1}>Welcome, <Link to='/account'>{this.props.auth.name}</Link>!</li>,
 				<li key={2}><Link to='/cart'>{cartText}</Link></li>,
 				<li key={3}><Link to='/logout'>Logout</Link></li>
 			]	

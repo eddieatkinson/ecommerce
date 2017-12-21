@@ -358,4 +358,35 @@ router.post('/makePayment', (req, res, next)=>{
 	});
 });
 
+router.post('/orders/get', (req, res, next)=>{
+	// res.json(req.body.userToken);
+	const getUserQuery = `SELECT * FROM users WHERE token = ?;`;
+	connection.query(getUserQuery, [req.body.userToken], (error, results)=>{
+		if(error){
+			throw error;
+		}else{
+			if(results.length == 0){
+				// user not found;
+				res.json({
+					msg: 'badToken'
+				});
+			}else{
+				// user has valid token
+				const usersId = results[0].id;
+				const customersId = results[0].cid;
+				const getOrderDetails = `SELECT * FROM orders 
+						INNER JOIN orderdetails ON orders.orderNumber = orderDetails.orderNumber
+					WHERE customerNumber = ?;`;
+				connection.query(getOrderDetails, [customersId], (error, orderResults)=>{
+					if(error){
+						throw error;
+					}else{
+						res.json(orderResults);
+					}
+				});
+			}
+		}
+	})
+});
+
 module.exports = router;
