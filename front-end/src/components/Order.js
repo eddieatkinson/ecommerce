@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 
 export default (props)=>{
-	console.log(props);
+	// console.log(props);
 	const orderNumber = props.routeProps.match.params.orderNumber;
 	const thisOrder = props.orders[orderNumber];
 	var totalOrder = 0;

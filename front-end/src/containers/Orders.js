@@ -24,10 +24,10 @@ class Orders extends Component{
 			});
 
 			thePromise.then((response)=>{
-				console.log(response.data);
+				// console.log(response.data);
 				const orderNumbers = {};
 				response.data.forEach((order)=>{
-					console.log(order);
+					// console.log(order);
 					const key = order.orderNumber
 					if(orderNumbers[key] === undefined){
 						orderNumbers[key] = [];
@@ -51,7 +51,7 @@ class Orders extends Component{
 		// 		);
 		// });
 
-		console.log(this.state.myOrders);
+		// console.log(this.state.myOrders);
 		if(this.props.auth.token === undefined){
 			return(
 				<h1>Please <Link to='/login'>login</Link> to view your orders</h1>
@@ -62,8 +62,8 @@ class Orders extends Component{
 		let uniqueKey = 0;
 		for(var key in this.state.myOrders){
 			uniqueKey += 1;
-			let thisOrder = this.state.myOrders[key]
-			console.log(this.state.myOrders[key]);
+			// let thisOrder = this.state.myOrders[key]
+			// console.log(this.state.myOrders[key]);
 			ordersByNumber.push(
 				<tr key={uniqueKey}>
 					<td>
@@ -72,25 +72,23 @@ class Orders extends Component{
 				</tr>
 			);
 		}
-			{
-			return(
-				<div>
-					<Table className="table table-striped">
-						<thead>
-							<tr>
-								<th>Order Number</th>
-							</tr>
-						</thead>
-						<tbody>
-							{ordersByNumber}
-						</tbody>
-					</Table>
-					<Route exact path='/account/orders/:orderNumber' render={(props) => (
-                    	<Order routeProps={props} orders={this.state.myOrders} />
-              		)}/>
-				</div>
-			);
-		}
+		return(
+			<div>
+				<Table className="table table-striped">
+					<thead>
+						<tr>
+							<th>Order Number</th>
+						</tr>
+					</thead>
+					<tbody>
+						{ordersByNumber}
+					</tbody>
+				</Table>
+				<Route exact path='/account/orders/:orderNumber' render={(props) => (
+                	<Order routeProps={props} orders={this.state.myOrders} />
+          		)}/>
+			</div>
+		);
 	}
 }
 

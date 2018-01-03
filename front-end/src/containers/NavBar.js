@@ -32,7 +32,7 @@ class NavBar extends Component{
 	// }
 
 	render(){
-		console.log(this.props.cart);
+		// console.log(this.props.cart);
 		var cartText;
 		var rightMenuBar;
 		if(this.props.auth.name !== undefined){

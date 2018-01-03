@@ -8,16 +8,16 @@ import Orders from './Orders';
 import Information from './Information';
 
 class Account extends Component{
-	constructor(){
-		super();
-	}
+	// constructor(){
+	// 	super();
+	// }
 
 	componentDidMount(){
 		// this.props.getProductLines();
 	}
 
 	render(){
-		console.log(this.props.match)
+		// console.log(this.props.match);
 		return(
 			<div>
 				<h1>Account Page</h1>

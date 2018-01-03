@@ -55,7 +55,7 @@ class Cart extends Component{
 	}
 
 	render(){
-		console.log(this.props.cart);
+		// console.log(this.props.cart);
 		// if no one is logged in, though no one should be at this route if not logged in
 		// if(!this.props.cart.totalItems){
 		// 	// if this return occurs, the render is DONE
